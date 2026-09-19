@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "JPML",
-  "scopeName": "source.jpml",
+  "name": "JPCL",
+  "scopeName": "source.jpcl",
   "fileTypes": ["jp"],
   "patterns": [
     { "include": "#comment" },
@@ -11,46 +11,46 @@
   "repository": {
     "comment": {
       "match": "(#).*$",
-      "name": "comment.line.number-sign.jpml",
+      "name": "comment.line.number-sign.jpcl",
       "captures": {
-        "1": { "name": "punctuation.definition.comment.jpml" }
+        "1": { "name": "punctuation.definition.comment.jpcl" }
       }
     },
 
     "section": {
       "comment": "A [header] opens a section. Only reachable at the top level: inside a value, '[' is an array.",
-      "name": "meta.section.jpml",
+      "name": "meta.section.jpcl",
       "begin": "^\\s*(\\[)",
       "beginCaptures": {
-        "1": { "name": "punctuation.definition.section.begin.jpml" }
+        "1": { "name": "punctuation.definition.section.begin.jpcl" }
       },
       "end": "(\\])|(?=\\s*(?:#|$))",
       "endCaptures": {
-        "1": { "name": "punctuation.definition.section.end.jpml" }
+        "1": { "name": "punctuation.definition.section.end.jpcl" }
       },
       "patterns": [
         {
           "match": "\"(?:[^\"\\\\]|\\\\.)*\"|'(?:[^'\\\\]|\\\\.)*'",
-          "name": "entity.name.section.jpml string.quoted.jpml"
+          "name": "entity.name.section.jpcl string.quoted.jpcl"
         },
         {
           "match": "\\.",
-          "name": "punctuation.separator.section.jpml"
+          "name": "punctuation.separator.section.jpcl"
         },
         {
           "match": "[^.\\]\"'#\\r\\n]+",
-          "name": "entity.name.section.jpml"
+          "name": "entity.name.section.jpcl"
         }
       ]
     },
 
     "entry": {
       "comment": "key: value. The value must start on the key's line, and ends at a comma, a closing bracket or the end of the line.",
-      "name": "meta.entry.jpml",
+      "name": "meta.entry.jpcl",
       "begin": "(\"(?:[^\"\\\\]|\\\\.)*\"|'(?:[^'\\\\]|\\\\.)*'|[^\\s:,{}\\[\\]\"'#][^:,{}\\[\\]\"'#\\r\\n]*?)\\s*(:)",
       "beginCaptures": {
-        "1": { "name": "support.type.property-name.jpml" },
-        "2": { "name": "punctuation.separator.key-value.jpml" }
+        "1": { "name": "support.type.property-name.jpcl" },
+        "2": { "name": "punctuation.separator.key-value.jpcl" }
       },
       "end": "(?=\\s*(?:[,}\\]]|$))",
       "patterns": [
@@ -73,53 +73,53 @@
     },
 
     "object": {
-      "name": "meta.structure.dictionary.jpml",
+      "name": "meta.structure.dictionary.jpcl",
       "begin": "\\{",
       "beginCaptures": {
-        "0": { "name": "punctuation.definition.dictionary.begin.jpml" }
+        "0": { "name": "punctuation.definition.dictionary.begin.jpcl" }
       },
       "end": "\\}",
       "endCaptures": {
-        "0": { "name": "punctuation.definition.dictionary.end.jpml" }
+        "0": { "name": "punctuation.definition.dictionary.end.jpcl" }
       },
       "patterns": [
         { "include": "#comment" },
         { "include": "#entry" },
         {
           "match": ",",
-          "name": "punctuation.separator.dictionary.jpml"
+          "name": "punctuation.separator.dictionary.jpcl"
         }
       ]
     },
 
     "array": {
-      "name": "meta.structure.array.jpml",
+      "name": "meta.structure.array.jpcl",
       "begin": "\\[",
       "beginCaptures": {
-        "0": { "name": "punctuation.definition.array.begin.jpml" }
+        "0": { "name": "punctuation.definition.array.begin.jpcl" }
       },
       "end": "\\]",
       "endCaptures": {
-        "0": { "name": "punctuation.definition.array.end.jpml" }
+        "0": { "name": "punctuation.definition.array.end.jpcl" }
       },
       "patterns": [
         {
           "match": ",",
-          "name": "punctuation.separator.array.jpml"
+          "name": "punctuation.separator.array.jpcl"
         },
         { "include": "#value" }
       ]
     },
 
     "string-double": {
-      "name": "string.quoted.double.jpml",
+      "name": "string.quoted.double.jpcl",
       "begin": "\"",
       "beginCaptures": {
-        "0": { "name": "punctuation.definition.string.begin.jpml" }
+        "0": { "name": "punctuation.definition.string.begin.jpcl" }
       },
       "end": "(\")|(?<![\\\\\\n])$",
       "endCaptures": {
-        "1": { "name": "punctuation.definition.string.end.jpml" }
+        "1": { "name": "punctuation.definition.string.end.jpcl" }
       },
       "patterns": [
         { "include": "#escape" }
@@ -127,14 +127,14 @@
     },
 
     "string-single": {
-      "name": "string.quoted.single.jpml",
+      "name": "string.quoted.single.jpcl",
       "begin": "'",
       "beginCaptures": {
-        "0": { "name": "punctuation.definition.string.begin.jpml" }
+        "0": { "name": "punctuation.definition.string.begin.jpcl" }
       },
       "end": "(')|(?<![\\\\\\n])$",
       "endCaptures": {
-        "1": { "name": "punctuation.definition.string.end.jpml" }
+        "1": { "name": "punctuation.definition.string.end.jpcl" }
       },
       "patterns": [
         { "include": "#escape" }
@@ -145,34 +145,34 @@
       "patterns": [
         {
           "match": "\\\\(?:[\"'\\\\/0abefnrtv]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8}|$)",
-          "name": "constant.character.escape.jpml"
+          "name": "constant.character.escape.jpcl"
         },
         {
           "match": "\\\\.",
-          "name": "invalid.illegal.unrecognized-string-escape.jpml"
+          "name": "invalid.illegal.unrecognized-string-escape.jpcl"
         }
       ]
     },
 
     "number": {
       "match": "(?i)[+-]?(?:0x(?:_?[0-9a-f])+|0o(?:_?[0-7])+|0b(?:_?[01])+|(?:\\d+(?:_\\d+)*(?:\\.(?:\\d+(?:_\\d+)*)?)?|\\.\\d+(?:_\\d+)*)(?:e[+-]?\\d+(?:_\\d+)*)?|inf(?:inity)?|nan)(?=\\s*(?:[,}\\]#]|$))",
-      "name": "constant.numeric.jpml"
+      "name": "constant.numeric.jpcl"
     },
 
     "boolean": {
       "match": "(?i)(?:true|false)(?=\\s*(?:[,}\\]#]|$))",
-      "name": "constant.language.boolean.jpml"
+      "name": "constant.language.boolean.jpcl"
     },
 
     "null": {
       "match": "(?i)(?:null|none|nil)(?=\\s*(?:[,}\\]#]|$))",
-      "name": "constant.language.null.jpml"
+      "name": "constant.language.null.jpcl"
     },
 
     "bare": {
       "comment": "An unquoted string runs to the next comma, closing bracket, comment or line end.",
       "match": "[^\\s,{}\\[\\]#\"'][^,}\\]#\\r\\n]*?(?=\\s*(?:[,}\\]#]|$))",
-      "name": "string.unquoted.jpml"
+      "name": "string.unquoted.jpcl"
     }
   }
 }

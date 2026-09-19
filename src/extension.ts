@@ -1,10 +1,10 @@
 import * as vscode from "vscode";
-import { JPDecodeError, dumps, loads, type DuplicateKeys } from "jpml-lang/core";
+import { JPDecodeError, dumps, loads, type DuplicateKeys } from "jpcl/core";
 
 import { toJson } from "./json";
 import { analyse, type OutlineSymbol } from "./outline";
 
-const LANGUAGE = "jpml";
+const LANGUAGE = "jpcl";
 const SELECTOR: vscode.DocumentSelector = { language: LANGUAGE };
 
 /** How long to wait after the last keystroke before re-checking a document. */
@@ -52,12 +52,12 @@ export function activate(context: vscode.ExtensionContext): void {
       diagnostics.delete(document.uri);
     }),
     vscode.workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration("jpml")) vscode.workspace.textDocuments.forEach(validate);
+      if (event.affectsConfiguration("jpcl")) vscode.workspace.textDocuments.forEach(validate);
     }),
     vscode.languages.registerDocumentSymbolProvider(SELECTOR, { provideDocumentSymbols }),
     vscode.languages.registerFoldingRangeProvider(SELECTOR, { provideFoldingRanges }),
     vscode.languages.registerDocumentFormattingEditProvider(SELECTOR, { provideDocumentFormattingEdits }),
-    vscode.commands.registerCommand("jpml.showJson", showJson),
+    vscode.commands.registerCommand("jpcl.showJson", showJson),
     { dispose: () => timers.forEach((timer) => clearTimeout(timer)) },
   );
 
@@ -67,7 +67,7 @@ export function activate(context: vscode.ExtensionContext): void {
 export function deactivate(): void {}
 
 function settings(document?: vscode.TextDocument): vscode.WorkspaceConfiguration {
-  return vscode.workspace.getConfiguration("jpml", document);
+  return vscode.workspace.getConfiguration("jpcl", document);
 }
 
 function parse(document: vscode.TextDocument) {
@@ -87,7 +87,7 @@ function check(document: vscode.TextDocument): vscode.Diagnostic[] {
     const start = document.positionAt(error.pos);
     const range = document.getWordRangeAtPosition(start, ERROR_TOKEN) ?? new vscode.Range(start, start);
     const diagnostic = new vscode.Diagnostic(range, error.rawMessage, vscode.DiagnosticSeverity.Error);
-    diagnostic.source = "jpml";
+    diagnostic.source = "jpcl";
     return [diagnostic];
   }
 }
@@ -169,12 +169,12 @@ function provideDocumentFormattingEdits(
   if (analyse(text).comments.length && !config.get("format.allowDroppingComments", false)) {
     void vscode.window
       .showWarningMessage(
-        "JPML: this file was not formatted because formatting would remove its comments.",
+        "JPCL: this file was not formatted because formatting would remove its comments.",
         "Change Setting",
       )
       .then((choice) => {
         if (choice) {
-          void vscode.commands.executeCommand("workbench.action.openSettings", "jpml.format.allowDroppingComments");
+          void vscode.commands.executeCommand("workbench.action.openSettings", "jpcl.format.allowDroppingComments");
         }
       });
     return [];
@@ -204,7 +204,7 @@ async function showJson(): Promise<void> {
   } catch (error) {
     if (!(error instanceof JPDecodeError)) throw error;
     void vscode.window.showErrorMessage(
-      `JPML: cannot preview, line ${error.line}, column ${error.col}: ${error.rawMessage}`,
+      `JPCL: cannot preview, line ${error.line}, column ${error.col}: ${error.rawMessage}`,
     );
     return;
   }

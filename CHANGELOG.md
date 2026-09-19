@@ -2,13 +2,13 @@
 
 ## 1.1.1
 
-First release, versioned to match the `jpml` (PyPI) and `jpml-lang` (npm)
+First release, versioned to match the `jpcl` (PyPI) and `jpcl` (npm)
 packages it is built alongside.
 
 
 - Syntax highlighting for `.jp` files.
-- Live error checking with the `jpml-lang` parser.
+- Live error checking with the `jpcl` parser.
 - Outline, breadcrumbs, Go to Symbol and folding.
 - Format Document, which leaves files with comments untouched unless
-  `jpml.format.allowDroppingComments` is on.
+  `jpcl.format.allowDroppingComments` is on.
 - Preview as JSON command.

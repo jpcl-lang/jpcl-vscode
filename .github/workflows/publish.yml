@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: vscode-marketplace
-      url: https://marketplace.visualstudio.com/items?itemName=jpml-lang.jpml
+      url: https://marketplace.visualstudio.com/items?itemName=jpcl.jpcl
     permissions:
       actions: read     # lets download-artifact fetch the build output
 
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: open-vsx
-      url: https://open-vsx.org/extension/jpml-lang/jpml
+      url: https://open-vsx.org/extension/jpcl/jpcl
     permissions:
       actions: read
 

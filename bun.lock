@@ -3,13 +3,13 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "jpml",
+      "name": "jpcl",
       "devDependencies": {
         "@types/bun": "^1.4.2",
         "@types/vscode": "1.90.0",
         "@vscode/vsce": "^3.9.2",
         "esbuild": "^0.28.2",
-        "jpml-lang": "^1.1.1",
+        "jpcl": "^1.1.1",
         "typescript": "^7.0.2",
         "vscode-tmgrammar-test": "^0.1.3",
       },
@@ -428,7 +428,7 @@
 
     "istextorbinary": ["istextorbinary@9.5.0", "", { "dependencies": { "binaryextensions": "^6.11.0", "editions": "^6.21.0", "textextensions": "^6.11.0" } }, "sha512-5mbUj3SiZXCuRf9fT3ibzbSSEWiy63gFfksmGfdOzujPjW3k+z8WvIBxcJHBoQNlaZaiyB25deviif2+osLmLw=="],
 
-    "jpml-lang": ["jpml-lang@1.1.1", "", { "bin": { "jpml": "dist/bin.js" } }, "sha512-IfzteOTIhEyTrNs9unQaxD+f6FT3qJgG240xojw5XX68WgOXv601QbwhDQ0AjSCG89eSy2ezNQqzjDv41ho4bA=="],
+    "jpcl": ["jpcl@1.1.1", "", { "bin": { "jpcl": "dist/bin.js" } }, "sha512-IfzteOTIhEyTrNs9unQaxD+f6FT3qJgG240xojw5XX68WgOXv601QbwhDQ0AjSCG89eSy2ezNQqzjDv41ho4bA=="],
 
     "js-tokens": ["js-tokens@4.0.0", "", {}, "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="],
 

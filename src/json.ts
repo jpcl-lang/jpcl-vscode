@@ -2,7 +2,7 @@
  * Render a parsed `.jp` value as indented JSON. Unlike `JSON.stringify` this
  * writes a `bigint` as a plain integer and non-finite numbers as `NaN` /
  * `Infinity`, so nothing a `.jp` file holds is lost or throws. This matches
- * `jpml to-json`.
+ * `jpcl to-json`.
  */
 export function toJson(value: unknown, indent = 2, level = 0): string {
   if (value === null || value === undefined) return "null";

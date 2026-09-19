@@ -1,17 +1,17 @@
 {
-  "name": "jpml",
-  "displayName": "JPML",
-  "description": "Syntax highlighting, live error checking, outline and formatting for .jp (JPML) files",
+  "name": "jpcl",
+  "displayName": "JPCL",
+  "description": "Syntax highlighting, live error checking, outline and formatting for .jp (JPCL) files",
   "version": "1.1.1",
-  "publisher": "jpml-lang",
+  "publisher": "jpcl",
   "icon": "images/icon.png",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jpml-lang/jpml-vscode.git"
+    "url": "https://github.com/jpcl-lang/jpcl-vscode.git"
   },
   "bugs": {
-    "url": "https://github.com/jpml-lang/jpml-vscode/issues"
+    "url": "https://github.com/jpcl-lang/jpcl-vscode/issues"
   },
   "engines": {
     "vscode": "^1.90.0"
@@ -22,7 +22,7 @@
     "Formatters"
   ],
   "keywords": [
-    "jpml",
+    "jpcl",
     "jp",
     "config",
     "configuration",
@@ -33,10 +33,10 @@
   "contributes": {
     "languages": [
       {
-        "id": "jpml",
+        "id": "jpcl",
         "aliases": [
-          "JPML",
-          "jpml"
+          "JPCL",
+          "jpcl"
         ],
         "extensions": [
           ".jp"
@@ -46,43 +46,43 @@
     ],
     "grammars": [
       {
-        "language": "jpml",
-        "scopeName": "source.jpml",
-        "path": "./syntaxes/jpml.tmLanguage.json"
+        "language": "jpcl",
+        "scopeName": "source.jpcl",
+        "path": "./syntaxes/jpcl.tmLanguage.json"
       }
     ],
     "commands": [
       {
-        "command": "jpml.showJson",
+        "command": "jpcl.showJson",
         "title": "Preview as JSON",
-        "category": "JPML",
+        "category": "JPCL",
         "icon": "$(json)"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "jpml.showJson",
-          "when": "editorLangId == jpml"
+          "command": "jpcl.showJson",
+          "when": "editorLangId == jpcl"
         }
       ],
       "editor/title": [
         {
-          "command": "jpml.showJson",
-          "when": "resourceLangId == jpml",
+          "command": "jpcl.showJson",
+          "when": "resourceLangId == jpcl",
           "group": "navigation"
         }
       ]
     },
     "configuration": {
-      "title": "JPML",
+      "title": "JPCL",
       "properties": {
-        "jpml.validate.enable": {
+        "jpcl.validate.enable": {
           "type": "boolean",
           "default": true,
           "description": "Check .jp files for errors as you type."
         },
-        "jpml.duplicateKeys": {
+        "jpcl.duplicateKeys": {
           "type": "string",
           "enum": [
             "error",
@@ -97,18 +97,18 @@
           "default": "error",
           "description": "How repeated keys are treated when checking, formatting and previewing."
         },
-        "jpml.format.width": {
+        "jpcl.format.width": {
           "type": "integer",
           "default": 88,
           "minimum": 1,
           "description": "Column budget for keeping an array on one line when formatting."
         },
-        "jpml.format.sortKeys": {
+        "jpcl.format.sortKeys": {
           "type": "boolean",
           "default": false,
           "description": "Sort keys alphabetically when formatting."
         },
-        "jpml.format.allowDroppingComments": {
+        "jpcl.format.allowDroppingComments": {
           "type": "boolean",
           "default": false,
           "description": "Allow Format Document on files that contain comments. The formatter rewrites the whole file and cannot keep comments, so they are removed."
@@ -130,7 +130,7 @@
     "@types/vscode": "1.90.0",
     "@vscode/vsce": "^3.9.2",
     "esbuild": "^0.28.2",
-    "jpml-lang": "^1.1.1",
+    "jpcl": "^1.1.1",
     "typescript": "^7.0.2",
     "vscode-tmgrammar-test": "^0.1.3"
   }
