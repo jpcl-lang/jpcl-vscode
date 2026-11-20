@@ -1,6 +1,6 @@
-# Grammar snapshot fixture: every construct the highlighter knows about.
+$$ Grammar snapshot fixture: every construct the highlighter knows about.
 version: 2
-name: hello world   # an unquoted string, then a comment
+name: hello world   $$ an unquoted string, then a comment
 
 [SERVER_ID]
 config: {
@@ -26,3 +26,7 @@ multi: [
 ]
 unterminated: "oops
 after: 1
+colour: #8496AD $* inline block *$
+$* a block comment
+   across lines *$
+price: $5

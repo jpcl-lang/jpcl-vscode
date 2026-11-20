@@ -28,8 +28,10 @@ export interface OutlineSymbol {
 
 export interface Analysis {
   symbols: OutlineSymbol[];
-  /** Offsets of every `#` that starts a comment. */
+  /** Offsets of every `$$` or `$*` that starts a comment. */
   comments: number[];
+  /** Block comments that span lines, as offsets of their `$*` and just past their `*$`. */
+  blockComments: { start: number; end: number }[];
 }
 
 interface Frame {
@@ -44,11 +46,17 @@ interface Frame {
   expectValue: boolean;
 }
 
-const BARE_KEY = /[^\s:,{}[\]"'#][^:,{}[\]"'#\r\n]*/y;
+const BARE_KEY = /(?!\$[$*])[^\s:,{}[\]"'](?:(?!\$[$*])[^:,{}[\]"'\r\n])*/y;
+
+/** Whether a line (`$$`) or block (`$*`) comment starts at `i`. */
+function isCommentAt(text: string, i: number): boolean {
+  return text[i] === "$" && (text[i + 1] === "$" || text[i + 1] === "*");
+}
 
 export function analyse(text: string): Analysis {
   const symbols: OutlineSymbol[] = [];
   const comments: number[] = [];
+  const blockComments: { start: number; end: number }[] = [];
   const root: Frame = { type: "root", owner: null, open: null, expectKey: true, expectValue: false };
   const stack: Frame[] = [root];
   let section: OutlineSymbol | null = null;
@@ -89,9 +97,22 @@ export function analyse(text: string): Analysis {
       i++;
       continue;
     }
-    if (char === "#") {
+    if (text.startsWith("$$", i)) {
       comments.push(i);
       while (i < text.length && text[i] !== "\n") i++;
+      continue;
+    }
+    if (text.startsWith("$*", i)) {
+      comments.push(i);
+      const close = text.indexOf("*$", i + 2);
+      const end = close < 0 ? text.length : close + 2;
+      // Like the parser, a block comment that spans lines acts as a line break.
+      if (/[\r\n]/.test(text.slice(i, end))) {
+        blockComments.push({ start: i, end });
+        separate(frame, i);
+        lineStart = true;
+      }
+      i = end;
       continue;
     }
 
@@ -188,7 +209,7 @@ export function analyse(text: string): Analysis {
     if (frame.owner) extend(frame.owner, text.length);
   }
   if (section) extend(section, text.length);
-  return { symbols, comments };
+  return { symbols, comments, blockComments };
 }
 
 /** Skip a quoted string at `i`; stops at an unescaped line break if unterminated. */
@@ -212,7 +233,7 @@ function skipString(text: string, i: number): number {
 /** Read `[a.b]` at `i`; tolerates a missing `]`. */
 function scanHeader(text: string, i: number): { name: string; end: number } {
   let j = i + 1;
-  while (j < text.length && text[j] !== "\n" && text[j] !== "\r" && text[j] !== "#") {
+  while (j < text.length && text[j] !== "\n" && text[j] !== "\r" && !isCommentAt(text, j)) {
     const char = text[j];
     if (char === '"' || char === "'") {
       j = skipString(text, j);

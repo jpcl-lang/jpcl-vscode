@@ -1,19 +1,19 @@
-># Grammar snapshot fixture: every construct the highlighter knows about.
-#^ source.jpcl comment.line.number-sign.jpcl punctuation.definition.comment.jpcl
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.jpcl comment.line.number-sign.jpcl
+>$$ Grammar snapshot fixture: every construct the highlighter knows about.
+#^^ source.jpcl comment.line.double-dollar.jpcl punctuation.definition.comment.jpcl
+#  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.jpcl comment.line.double-dollar.jpcl
 >version: 2
 #^^^^^^^ source.jpcl meta.entry.jpcl support.type.property-name.jpcl
 #       ^ source.jpcl meta.entry.jpcl punctuation.separator.key-value.jpcl
 #        ^ source.jpcl meta.entry.jpcl
 #         ^ source.jpcl meta.entry.jpcl constant.numeric.jpcl
->name: hello world   # an unquoted string, then a comment
+>name: hello world   $$ an unquoted string, then a comment
 #^^^^ source.jpcl meta.entry.jpcl support.type.property-name.jpcl
 #    ^ source.jpcl meta.entry.jpcl punctuation.separator.key-value.jpcl
 #     ^ source.jpcl meta.entry.jpcl
 #      ^^^^^^^^^^^ source.jpcl meta.entry.jpcl string.unquoted.jpcl
 #                 ^^^ source.jpcl meta.entry.jpcl
-#                    ^ source.jpcl meta.entry.jpcl comment.line.number-sign.jpcl punctuation.definition.comment.jpcl
-#                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.jpcl meta.entry.jpcl comment.line.number-sign.jpcl
+#                    ^^ source.jpcl meta.entry.jpcl comment.line.double-dollar.jpcl punctuation.definition.comment.jpcl
+#                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.jpcl meta.entry.jpcl comment.line.double-dollar.jpcl
 >
 >[SERVER_ID]
 #^ source.jpcl meta.section.jpcl punctuation.definition.section.begin.jpcl
@@ -218,4 +218,24 @@
 #     ^ source.jpcl meta.entry.jpcl punctuation.separator.key-value.jpcl
 #      ^ source.jpcl meta.entry.jpcl
 #       ^ source.jpcl meta.entry.jpcl constant.numeric.jpcl
+>colour: #8496AD $* inline block *$
+#^^^^^^ source.jpcl meta.entry.jpcl support.type.property-name.jpcl
+#      ^ source.jpcl meta.entry.jpcl punctuation.separator.key-value.jpcl
+#       ^ source.jpcl meta.entry.jpcl
+#        ^^^^^^^ source.jpcl meta.entry.jpcl string.unquoted.jpcl
+#               ^ source.jpcl meta.entry.jpcl
+#                ^^ source.jpcl meta.entry.jpcl comment.block.jpcl punctuation.definition.comment.begin.jpcl
+#                  ^^^^^^^^^^^^^^ source.jpcl meta.entry.jpcl comment.block.jpcl
+#                                ^^ source.jpcl meta.entry.jpcl comment.block.jpcl punctuation.definition.comment.end.jpcl
+>$* a block comment
+#^^ source.jpcl comment.block.jpcl punctuation.definition.comment.begin.jpcl
+#  ^^^^^^^^^^^^^^^^^ source.jpcl comment.block.jpcl
+>   across lines *$
+#^^^^^^^^^^^^^^^^ source.jpcl comment.block.jpcl
+#                ^^ source.jpcl comment.block.jpcl punctuation.definition.comment.end.jpcl
+>price: $5
+#^^^^^ source.jpcl meta.entry.jpcl support.type.property-name.jpcl
+#     ^ source.jpcl meta.entry.jpcl punctuation.separator.key-value.jpcl
+#      ^ source.jpcl meta.entry.jpcl
+#       ^^ source.jpcl meta.entry.jpcl string.unquoted.jpcl
 >

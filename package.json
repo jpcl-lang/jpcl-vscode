@@ -2,7 +2,7 @@
   "name": "jpcl",
   "displayName": "JPCL",
   "description": "Syntax highlighting, live error checking, outline and formatting for .jp (JPCL) files",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "publisher": "jpcl",
   "icon": "images/icon.png",
   "license": "MIT",
@@ -126,11 +126,11 @@
     "vscode:prepublish": "npm run build"
   },
   "devDependencies": {
-    "@types/bun": "^1.4.2",
+    "@types/bun": "^1.4.5",
     "@types/vscode": "1.90.0",
-    "@vscode/vsce": "^3.9.2",
+    "@vscode/vsce": "^4.1.1",
     "esbuild": "^0.28.2",
-    "jpcl": "^1.1.1",
+    "jpcl-lang": "^1.1.1",
     "typescript": "^7.0.2",
     "vscode-tmgrammar-test": "^0.1.3"
   }

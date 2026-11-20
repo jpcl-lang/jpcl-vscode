@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { JPDecodeError, dumps, loads, type DuplicateKeys } from "jpcl/core";
+import { JPDecodeError, dumps, loads, type DuplicateKeys } from "jpcl-lang/core";
 
 import { toJson } from "./json";
 import { analyse, type OutlineSymbol } from "./outline";
@@ -11,7 +11,7 @@ const SELECTOR: vscode.DocumentSelector = { language: LANGUAGE };
 const VALIDATE_DELAY_MS = 250;
 
 /** The token an error points at: a run of value/key characters, or one punctuation mark. */
-const ERROR_TOKEN = /[^\s,{}[\]:#]+|[,{}[\]:#]/;
+const ERROR_TOKEN = /\$[$*]|(?:(?!\$[$*])[^\s,{}[\]:])+|[,{}[\]:]/;
 
 export function activate(context: vscode.ExtensionContext): void {
   const diagnostics = vscode.languages.createDiagnosticCollection(LANGUAGE);
@@ -117,7 +117,7 @@ function provideDocumentSymbols(document: vscode.TextDocument): vscode.DocumentS
 
 function provideFoldingRanges(document: vscode.TextDocument): vscode.FoldingRange[] {
   const text = document.getText();
-  const { symbols, comments } = analyse(text);
+  const { symbols, comments, blockComments } = analyse(text);
   const ranges: vscode.FoldingRange[] = [];
   const visit = (symbol: OutlineSymbol) => {
     const startLine = document.positionAt(symbol.start).line;
@@ -146,6 +146,13 @@ function provideFoldingRanges(document: vscode.TextDocument): vscode.FoldingRang
     previous = position.line;
   }
   if (previous > runStart && runStart >= 0) ranges.push(new vscode.FoldingRange(runStart, previous, vscode.FoldingRangeKind.Comment));
+
+  // A block comment that spans lines folds on its own.
+  for (const block of blockComments) {
+    const startLine = document.positionAt(block.start).line;
+    const endLine = document.positionAt(block.end).line;
+    ranges.push(new vscode.FoldingRange(startLine, endLine, vscode.FoldingRangeKind.Comment));
+  }
 
   return ranges;
 }
