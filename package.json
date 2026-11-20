@@ -130,7 +130,7 @@
     "@types/vscode": "1.90.0",
     "@vscode/vsce": "^4.1.1",
     "esbuild": "^0.28.2",
-    "jpcl-lang": "^1.1.1",
+    "jpcl-lang": "^1.2.0",
     "typescript": "^7.0.2",
     "vscode-tmgrammar-test": "^0.1.3"
   }
