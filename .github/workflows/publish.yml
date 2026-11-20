@@ -1,9 +1,9 @@
 name: Publish
 
 # Packages the extension and publishes it to the Visual Studio Marketplace and
-# Open VSX. Neither registry supports GitHub's OIDC trust the way PyPI and npm
-# do, so each publish job reads an access token from its own GitHub
-# environment. See "Releasing" in README.md for the one-time setup.
+# Open VSX. Open VSX uses trusted publishing (OIDC), registered on open-vsx.org
+# for this repo and workflow. The Marketplace has no OIDC trust, so its job
+# reads VSCE_PAT from the vscode-marketplace environment.
 #
 # Runs on a published GitHub Release, or manually to retry a failed upload.
 
@@ -92,6 +92,8 @@ jobs:
       name: open-vsx
       url: https://open-vsx.org/extension/jpcl/jpcl
     permissions:
+      # Mints the OIDC token Open VSX trusts
+      id-token: write
       actions: read
 
     steps:
@@ -103,7 +105,6 @@ jobs:
         with:
           name: vsix
 
+      # Trusted publishing needs ovsx 1.2.0 or newer
       - name: Publish
-        env:
-          OVSX_PAT: ${{ secrets.OVSX_PAT }}
-        run: npx --yes ovsx@1 publish *.vsix
+        run: npx --yes ovsx@^1.2.0 publish --trusted-publishing *.vsix
