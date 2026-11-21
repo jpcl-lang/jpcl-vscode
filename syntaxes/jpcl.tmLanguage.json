@@ -12,15 +12,15 @@
     "comment": {
       "patterns": [
         {
-          "match": "(\\$\\$).*$",
-          "name": "comment.line.double-dollar.jpcl",
+          "match": "(~~).*$",
+          "name": "comment.line.double-tilde.jpcl",
           "captures": {
             "1": { "name": "punctuation.definition.comment.jpcl" }
           }
         },
         {
-          "begin": "\\$\\*",
-          "end": "\\*\\$",
+          "begin": "~\\*",
+          "end": "\\*~",
           "name": "comment.block.jpcl",
           "beginCaptures": {
             "0": { "name": "punctuation.definition.comment.begin.jpcl" }
@@ -39,7 +39,7 @@
       "beginCaptures": {
         "1": { "name": "punctuation.definition.section.begin.jpcl" }
       },
-      "end": "(\\])|(?=\\s*(?:\\$[$*]|$))",
+      "end": "(\\])|(?=\\s*(?:~[~*]|$))",
       "endCaptures": {
         "1": { "name": "punctuation.definition.section.end.jpcl" }
       },
@@ -53,7 +53,7 @@
           "name": "punctuation.separator.section.jpcl"
         },
         {
-          "match": "(?:(?!\\$[$*])[^.\\]\\\"'\\r\\n])+",
+          "match": "(?:(?!~[~*])[^.\\]\\\"'\\r\\n])+",
           "name": "entity.name.section.jpcl"
         }
       ]
@@ -62,7 +62,7 @@
     "entry": {
       "comment": "key: value. The value must start on the key's line, and ends at a comma, a closing bracket or the end of the line.",
       "name": "meta.entry.jpcl",
-      "begin": "(\\\"(?:[^\\\"\\\\]|\\\\.)*\\\"|'(?:[^'\\\\]|\\\\.)*'|(?!\\$[$*])[^\\s:,{}\\[\\]\\\"'](?:(?!\\$[$*])[^:,{}\\[\\]\\\"'\\r\\n])*?)\\s*(:)",
+      "begin": "(\\\"(?:[^\\\"\\\\]|\\\\.)*\\\"|'(?:[^'\\\\]|\\\\.)*'|(?!~[~*])[^\\s:,{}\\[\\]\\\"'](?:(?!~[~*])[^:,{}\\[\\]\\\"'\\r\\n])*?)\\s*(:)",
       "beginCaptures": {
         "1": { "name": "support.type.property-name.jpcl" },
         "2": { "name": "punctuation.separator.key-value.jpcl" }
@@ -170,23 +170,23 @@
     },
 
     "number": {
-      "match": "(?i)[+-]?(?:0x(?:_?[0-9a-f])+|0o(?:_?[0-7])+|0b(?:_?[01])+|(?:\\d+(?:_\\d+)*(?:\\.(?:\\d+(?:_\\d+)*)?)?|\\.\\d+(?:_\\d+)*)(?:e[+-]?\\d+(?:_\\d+)*)?|inf(?:inity)?|nan)(?=\\s*(?:[,}\\]]|\\$[$*]|$))",
+      "match": "(?i)[+-]?(?:0x(?:_?[0-9a-f])+|0o(?:_?[0-7])+|0b(?:_?[01])+|(?:\\d+(?:_\\d+)*(?:\\.(?:\\d+(?:_\\d+)*)?)?|\\.\\d+(?:_\\d+)*)(?:e[+-]?\\d+(?:_\\d+)*)?|inf(?:inity)?|nan)(?=\\s*(?:[,}\\]]|~[~*]|$))",
       "name": "constant.numeric.jpcl"
     },
 
     "boolean": {
-      "match": "(?i)(?:true|false)(?=\\s*(?:[,}\\]]|\\$[$*]|$))",
+      "match": "(?i)(?:true|false)(?=\\s*(?:[,}\\]]|~[~*]|$))",
       "name": "constant.language.boolean.jpcl"
     },
 
     "null": {
-      "match": "(?i)(?:null|none|nil)(?=\\s*(?:[,}\\]]|\\$[$*]|$))",
+      "match": "(?i)(?:null|none|nil)(?=\\s*(?:[,}\\]]|~[~*]|$))",
       "name": "constant.language.null.jpcl"
     },
 
     "bare": {
       "comment": "An unquoted string runs to the next comma, closing bracket, comment or line end.",
-      "match": "(?!\\$[$*])[^\\s,{}\\[\\]\\\"'](?:(?!\\$[$*])[^,}\\]\\r\\n])*?(?=\\s*(?:[,}\\]]|\\$[$*]|$))",
+      "match": "(?!~[~*])[^\\s,{}\\[\\]\\\"'](?:(?!~[~*])[^,}\\]\\r\\n])*?(?=\\s*(?:[,}\\]]|~[~*]|$))",
       "name": "string.unquoted.jpcl"
     }
   }

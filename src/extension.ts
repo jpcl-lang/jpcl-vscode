@@ -11,7 +11,7 @@ const SELECTOR: vscode.DocumentSelector = { language: LANGUAGE };
 const VALIDATE_DELAY_MS = 250;
 
 /** The token an error points at: a run of value/key characters, or one punctuation mark. */
-const ERROR_TOKEN = /\$[$*]|(?:(?!\$[$*])[^\s,{}[\]:])+|[,{}[\]:]/;
+const ERROR_TOKEN = /~[~*]|(?:(?!~[~*])[^\s,{}[\]:])+|[,{}[\]:]/;
 
 export function activate(context: vscode.ExtensionContext): void {
   const diagnostics = vscode.languages.createDiagnosticCollection(LANGUAGE);

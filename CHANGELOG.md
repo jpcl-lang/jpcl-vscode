@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0
+
+- Comments now use `~~` for a line comment and `~* ... *~` for a block
+  comment, matching JPCL 2.0. `$$`, `$*` and `*$` are plain text now.
+- Bundles `jpcl-lang` 2.0.0.
+
 ## 1.2.0
 
 - Comments now use `$$` for a line comment and `$* ... *$` for a block

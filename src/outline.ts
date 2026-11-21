@@ -28,9 +28,9 @@ export interface OutlineSymbol {
 
 export interface Analysis {
   symbols: OutlineSymbol[];
-  /** Offsets of every `$$` or `$*` that starts a comment. */
+  /** Offsets of every `~~` or `~*` that starts a comment. */
   comments: number[];
-  /** Block comments that span lines, as offsets of their `$*` and just past their `*$`. */
+  /** Block comments that span lines, as offsets of their `~*` and just past their `*~`. */
   blockComments: { start: number; end: number }[];
 }
 
@@ -46,11 +46,11 @@ interface Frame {
   expectValue: boolean;
 }
 
-const BARE_KEY = /(?!\$[$*])[^\s:,{}[\]"'](?:(?!\$[$*])[^:,{}[\]"'\r\n])*/y;
+const BARE_KEY = /(?!~[~*])[^\s:,{}[\]"'](?:(?!~[~*])[^:,{}[\]"'\r\n])*/y;
 
-/** Whether a line (`$$`) or block (`$*`) comment starts at `i`. */
+/** Whether a line (`~~`) or block (`~*`) comment starts at `i`. */
 function isCommentAt(text: string, i: number): boolean {
-  return text[i] === "$" && (text[i + 1] === "$" || text[i + 1] === "*");
+  return text[i] === "~" && (text[i + 1] === "~" || text[i + 1] === "*");
 }
 
 export function analyse(text: string): Analysis {
@@ -97,14 +97,14 @@ export function analyse(text: string): Analysis {
       i++;
       continue;
     }
-    if (text.startsWith("$$", i)) {
+    if (text.startsWith("~~", i)) {
       comments.push(i);
       while (i < text.length && text[i] !== "\n") i++;
       continue;
     }
-    if (text.startsWith("$*", i)) {
+    if (text.startsWith("~*", i)) {
       comments.push(i);
-      const close = text.indexOf("*$", i + 2);
+      const close = text.indexOf("*~", i + 2);
       const end = close < 0 ? text.length : close + 2;
       // Like the parser, a block comment that spans lines acts as a line break.
       if (/[\r\n]/.test(text.slice(i, end))) {

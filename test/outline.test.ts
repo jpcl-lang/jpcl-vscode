@@ -15,13 +15,13 @@ function slice(text: string, symbol: OutlineSymbol): string {
   return text.slice(symbol.start, symbol.end);
 }
 
-const SAMPLE = `$$ leading comment
+const SAMPLE = `~~ leading comment
 version: 2
 
 [SERVER_ID]
 config: {
   disabled_channels:,
-  disabled_users: [9892, 82082, 8209]  $$ trailing
+  disabled_users: [9892, 82082, 8209]  ~~ trailing
 }
 
 [SERVER_ID_2]
@@ -43,10 +43,10 @@ describe("outline", () => {
     const [version, server, server2] = symbols as [OutlineSymbol, OutlineSymbol, OutlineSymbol];
     expect(slice(SAMPLE, version)).toBe("version: 2");
     expect(slice(SAMPLE, server)).toBe(
-      "[SERVER_ID]\nconfig: {\n  disabled_channels:,\n  disabled_users: [9892, 82082, 8209]  $$ trailing\n}",
+      "[SERVER_ID]\nconfig: {\n  disabled_channels:,\n  disabled_users: [9892, 82082, 8209]  ~~ trailing\n}",
     );
     const config = server.children[0]!;
-    expect(slice(SAMPLE, config)).toEndWith("$$ trailing\n}");
+    expect(slice(SAMPLE, config)).toEndWith("~~ trailing\n}");
     expect(slice(SAMPLE, config.children[0]!)).toBe("disabled_channels:");
     expect(slice(SAMPLE, config.children[1]!)).toBe("disabled_users: [9892, 82082, 8209]");
     expect(SAMPLE.slice(server.nameStart, server.nameEnd)).toBe("[SERVER_ID]");
@@ -54,20 +54,27 @@ describe("outline", () => {
   });
 
   test("comments are found, but not inside strings", () => {
-    const text = '$$ one\na: "not $$ a comment"  $$ two\nb: #ff0000\n';
-    expect(analyse(text).comments).toEqual([0, text.indexOf("$$ two")]);
+    const text = '~~ one\na: "not ~~ a comment"  ~~ two\nb: #ff0000\n';
+    expect(analyse(text).comments).toEqual([0, text.indexOf("~~ two")]);
   });
 
   test("block comments are found and span lines", () => {
-    const text = "$* one\n   two *$\na: 1 $* inline *$\n[s]\nb: 2\n";
+    const text = "~* one\n   two *~\na: 1 ~* inline *~\n[s]\nb: 2\n";
     const { comments, blockComments, symbols } = analyse(text);
-    expect(comments).toEqual([0, text.indexOf("$* inline")]);
-    expect(blockComments).toEqual([{ start: 0, end: text.indexOf("*$") + 2 }]);
+    expect(comments).toEqual([0, text.indexOf("~* inline")]);
+    expect(blockComments).toEqual([{ start: 0, end: text.indexOf("*~") + 2 }]);
     expect(tree(symbols)).toEqual(["a", ["s", ["b"]]]);
   });
 
+  test("the old $$ and $* markers are plain text", () => {
+    const text = "a: $$ x\nb: $* y *$\nc: ~5\n";
+    const { comments, symbols } = analyse(text);
+    expect(comments).toEqual([]);
+    expect(tree(symbols)).toEqual(["a", "b", "c"]);
+  });
+
   test("a multi-line block comment after a key ends the entry", () => {
-    const text = "a: $* no\nvalue *$\nb: 1\n";
+    const text = "a: ~* no\nvalue *~\nb: 1\n";
     expect(tree(analyse(text).symbols)).toEqual(["a", "b"]);
   });
 
