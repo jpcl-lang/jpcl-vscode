@@ -1,6 +1,8 @@
 **
 !dist/extension.js
 !images/icon.png
+!images/jpcl-file-dark.svg
+!images/jpcl-file-light.svg
 !syntaxes/**
 !language-configuration.json
 !package.json

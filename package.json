@@ -2,7 +2,7 @@
   "name": "jpcl",
   "displayName": "JPCL",
   "description": "Syntax highlighting, live error checking, outline and formatting for .jp (JPCL) files",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "publisher": "jpcl",
   "icon": "images/icon.png",
   "license": "MIT",
@@ -134,8 +134,11 @@
     "@types/vscode": "1.90.0",
     "@vscode/vsce": "^4.1.1",
     "esbuild": "^0.28.2",
-    "jpcl-lang": "^2.0.0",
+    "jpcl-lang": "^2.1.0",
     "typescript": "^7.0.2",
     "vscode-tmgrammar-test": "^0.1.3"
-  }
+  },
+  "trustedDependencies": [
+    "@vscode/vsce-sign"
+  ]
 }
