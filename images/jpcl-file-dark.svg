@@ -1,0 +1,9 @@
+<!-- JPCL file mark, based on the artwork in jpcl-lang/assets. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1.5" y="1.5" width="13" height="13" rx="2.5" stroke="#cdd6f4"/>
+    <path d="M5 4H4v3h1m6-3h1v3h-1M7 5.5h2" stroke="#f5c2e7"/>
+    <path d="M4 9h3m2-.5v.01m0 1.5v.01" stroke="#f9e2af"/>
+    <path d="M5.5 11h6.5m-6.5 2h4.5" stroke="#cdd6f4"/>
+  </g>
+</svg>

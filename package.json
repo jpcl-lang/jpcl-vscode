@@ -41,7 +41,11 @@
         "extensions": [
           ".jp"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/jpcl-file-light.svg",
+          "dark": "./images/jpcl-file-dark.svg"
+        }
       }
     ],
     "grammars": [
